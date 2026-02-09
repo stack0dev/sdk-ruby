@@ -1,0 +1,27 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+*.gem
+*.rbc
+.config
+.rspec_status
+Gemfile.lock
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# VCR cassettes (optional - may want to commit these)
+# spec/fixtures/vcr_cassettes/
+
+# Environment
+.env
+.env.local
+.env.*.local
