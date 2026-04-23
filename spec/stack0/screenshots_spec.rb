@@ -59,7 +59,7 @@ RSpec.describe Stack0::Screenshots::Client do
       stub_stack0_request(:get, "/webdata/screenshots/screenshot_123", response_body: {
         "id" => "screenshot_123",
         "status" => "completed",
-        "imageUrl" => "https://cdn.stack0.io/screenshots/abc.png",
+        "imageUrl" => "https://cdn.stack0.dev/screenshots/abc.png",
         "createdAt" => "2024-01-15T10:00:00Z",
         "completedAt" => "2024-01-15T10:00:05Z"
       })
@@ -68,7 +68,7 @@ RSpec.describe Stack0::Screenshots::Client do
 
       expect(result["id"]).to eq("screenshot_123")
       expect(result["status"]).to eq("completed")
-      expect(result["imageUrl"]).to include("cdn.stack0.io")
+      expect(result["imageUrl"]).to include("cdn.stack0.dev")
       expect(result["createdAt"]).to be_a(Time)
       expect(result["completedAt"]).to be_a(Time)
     end
@@ -104,7 +104,7 @@ RSpec.describe Stack0::Screenshots::Client do
 
   describe "#delete" do
     it "deletes a screenshot" do
-      stub_request(:delete, "https://api.stack0.io/webdata/screenshots/screenshot_123")
+      stub_request(:delete, "https://api.stack0.dev/webdata/screenshots/screenshot_123")
         .with(body: { "id" => "screenshot_123" }.to_json)
         .to_return(
           status: 200,
@@ -184,20 +184,20 @@ RSpec.describe Stack0::Screenshots::Client do
 
   describe "#capture_and_wait" do
     it "captures and waits for completion" do
-      stub_request(:post, "https://api.stack0.io/webdata/screenshots")
+      stub_request(:post, "https://api.stack0.dev/webdata/screenshots")
         .to_return(
           status: 200,
           body: { "id" => "screenshot_123", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/screenshots/screenshot_123")
+      stub_request(:get, "https://api.stack0.dev/webdata/screenshots/screenshot_123")
         .to_return(
           status: 200,
           body: {
             "id" => "screenshot_123",
             "status" => "completed",
-            "imageUrl" => "https://cdn.stack0.io/screenshots/abc.png",
+            "imageUrl" => "https://cdn.stack0.dev/screenshots/abc.png",
             "createdAt" => "2024-01-15T10:00:00Z",
             "completedAt" => "2024-01-15T10:00:05Z"
           }.to_json,
@@ -211,18 +211,18 @@ RSpec.describe Stack0::Screenshots::Client do
       )
 
       expect(result["status"]).to eq("completed")
-      expect(result["imageUrl"]).to include("cdn.stack0.io")
+      expect(result["imageUrl"]).to include("cdn.stack0.dev")
     end
 
     it "raises error on failure" do
-      stub_request(:post, "https://api.stack0.io/webdata/screenshots")
+      stub_request(:post, "https://api.stack0.dev/webdata/screenshots")
         .to_return(
           status: 200,
           body: { "id" => "screenshot_fail", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/screenshots/screenshot_fail")
+      stub_request(:get, "https://api.stack0.dev/webdata/screenshots/screenshot_fail")
         .to_return(
           status: 200,
           body: { "id" => "screenshot_fail", "status" => "failed", "error" => "URL not reachable" }.to_json,
@@ -235,14 +235,14 @@ RSpec.describe Stack0::Screenshots::Client do
     end
 
     it "raises timeout error" do
-      stub_request(:post, "https://api.stack0.io/webdata/screenshots")
+      stub_request(:post, "https://api.stack0.dev/webdata/screenshots")
         .to_return(
           status: 200,
           body: { "id" => "screenshot_slow", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/screenshots/screenshot_slow")
+      stub_request(:get, "https://api.stack0.dev/webdata/screenshots/screenshot_slow")
         .to_return(
           status: 200,
           body: { "id" => "screenshot_slow", "status" => "processing" }.to_json,
@@ -257,14 +257,14 @@ RSpec.describe Stack0::Screenshots::Client do
 
   describe "#batch_and_wait" do
     it "creates batch and waits for completion" do
-      stub_request(:post, "https://api.stack0.io/webdata/batch/screenshots")
+      stub_request(:post, "https://api.stack0.dev/webdata/batch/screenshots")
         .to_return(
           status: 200,
           body: { "id" => "batch_123", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/batch/batch_123")
+      stub_request(:get, "https://api.stack0.dev/webdata/batch/batch_123")
         .to_return(
           status: 200,
           body: {
@@ -355,7 +355,7 @@ RSpec.describe Stack0::Screenshots::Client do
 
   describe "#delete_schedule" do
     it "deletes a schedule" do
-      stub_request(:delete, "https://api.stack0.io/webdata/schedules/sched_123")
+      stub_request(:delete, "https://api.stack0.dev/webdata/schedules/sched_123")
         .with(body: { "id" => "sched_123" }.to_json)
         .to_return(
           status: 200,

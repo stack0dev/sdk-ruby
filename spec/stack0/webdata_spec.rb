@@ -40,7 +40,7 @@ RSpec.describe Stack0::Webdata::Client do
       stub_stack0_request(:get, "/webdata/screenshots/ss_123", response_body: {
         "id" => "ss_123",
         "status" => "completed",
-        "imageUrl" => "https://cdn.stack0.io/screenshots/abc.png",
+        "imageUrl" => "https://cdn.stack0.dev/screenshots/abc.png",
         "createdAt" => "2024-01-15T10:00:00Z",
         "completedAt" => "2024-01-15T10:00:05Z"
       })
@@ -83,20 +83,20 @@ RSpec.describe Stack0::Webdata::Client do
 
   describe "#screenshot_and_wait" do
     it "captures and waits for completion" do
-      stub_request(:post, "https://api.stack0.io/webdata/screenshots")
+      stub_request(:post, "https://api.stack0.dev/webdata/screenshots")
         .to_return(
           status: 200,
           body: { "id" => "ss_123", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/screenshots/ss_123")
+      stub_request(:get, "https://api.stack0.dev/webdata/screenshots/ss_123")
         .to_return(
           status: 200,
           body: {
             "id" => "ss_123",
             "status" => "completed",
-            "imageUrl" => "https://cdn.stack0.io/abc.png",
+            "imageUrl" => "https://cdn.stack0.dev/abc.png",
             "createdAt" => "2024-01-15T10:00:00Z",
             "completedAt" => "2024-01-15T10:00:05Z"
           }.to_json,
@@ -106,18 +106,18 @@ RSpec.describe Stack0::Webdata::Client do
       result = webdata.screenshot_and_wait(url: "https://example.com", poll_interval: 0.1, timeout: 5)
 
       expect(result["status"]).to eq("completed")
-      expect(result["imageUrl"]).to include("cdn.stack0.io")
+      expect(result["imageUrl"]).to include("cdn.stack0.dev")
     end
 
     it "raises error on failure" do
-      stub_request(:post, "https://api.stack0.io/webdata/screenshots")
+      stub_request(:post, "https://api.stack0.dev/webdata/screenshots")
         .to_return(
           status: 200,
           body: { "id" => "ss_fail", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/screenshots/ss_fail")
+      stub_request(:get, "https://api.stack0.dev/webdata/screenshots/ss_fail")
         .to_return(
           status: 200,
           body: { "id" => "ss_fail", "status" => "failed", "error" => "URL not reachable" }.to_json,
@@ -130,14 +130,14 @@ RSpec.describe Stack0::Webdata::Client do
     end
 
     it "raises timeout error" do
-      stub_request(:post, "https://api.stack0.io/webdata/screenshots")
+      stub_request(:post, "https://api.stack0.dev/webdata/screenshots")
         .to_return(
           status: 200,
           body: { "id" => "ss_slow", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/screenshots/ss_slow")
+      stub_request(:get, "https://api.stack0.dev/webdata/screenshots/ss_slow")
         .to_return(
           status: 200,
           body: { "id" => "ss_slow", "status" => "processing" }.to_json,
@@ -215,14 +215,14 @@ RSpec.describe Stack0::Webdata::Client do
 
   describe "#extract_and_wait" do
     it "extracts and waits for completion" do
-      stub_request(:post, "https://api.stack0.io/webdata/extractions")
+      stub_request(:post, "https://api.stack0.dev/webdata/extractions")
         .to_return(
           status: 200,
           body: { "id" => "ext_123", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/extractions/ext_123")
+      stub_request(:get, "https://api.stack0.dev/webdata/extractions/ext_123")
         .to_return(
           status: 200,
           body: {
@@ -402,14 +402,14 @@ RSpec.describe Stack0::Webdata::Client do
 
   describe "#batch_screenshots_and_wait" do
     it "creates batch and waits for completion" do
-      stub_request(:post, "https://api.stack0.io/webdata/batch/screenshots")
+      stub_request(:post, "https://api.stack0.dev/webdata/batch/screenshots")
         .to_return(
           status: 200,
           body: { "id" => "batch_123", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/batch/batch_123")
+      stub_request(:get, "https://api.stack0.dev/webdata/batch/batch_123")
         .to_return(
           status: 200,
           body: {

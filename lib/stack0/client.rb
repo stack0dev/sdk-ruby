@@ -37,11 +37,11 @@ module Stack0
     #
     # @param api_key [String] Your Stack0 API key
     # @param base_url [String, nil] Base URL for API requests (default: https://api.stack0.dev/v1)
-    # @param cdn_url [String, nil] CDN URL for uploads (default: https://cdn.stack0.io)
+    # @param cdn_url [String, nil] CDN URL for uploads (default: https://cdn.stack0.dev)
     # @param timeout [Integer, nil] Request timeout in seconds (default: 30)
     def initialize(api_key:, base_url: nil, cdn_url: nil, timeout: nil)
       actual_base_url = base_url || "https://api.stack0.dev/v1"
-      actual_cdn_url = cdn_url || "https://cdn.stack0.io"
+      actual_cdn_url = cdn_url || "https://cdn.stack0.dev"
       actual_timeout = timeout || 30
 
       http = HTTPClient.new(

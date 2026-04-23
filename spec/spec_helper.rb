@@ -35,7 +35,7 @@ end
 
 # Helper to stub API requests
 def stub_stack0_request(method, path, response_body: {}, status: 200)
-  stub_request(method, "https://api.stack0.io#{path}")
+  stub_request(method, "https://api.stack0.dev#{path}")
     .to_return(
       status: status,
       body: response_body.to_json,

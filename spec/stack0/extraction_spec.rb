@@ -94,7 +94,7 @@ RSpec.describe Stack0::Extraction::Client do
 
   describe "#delete" do
     it "deletes an extraction" do
-      stub_request(:delete, "https://api.stack0.io/webdata/extractions/extraction_123")
+      stub_request(:delete, "https://api.stack0.dev/webdata/extractions/extraction_123")
         .with(body: { "id" => "extraction_123" }.to_json)
         .to_return(
           status: 200,
@@ -174,14 +174,14 @@ RSpec.describe Stack0::Extraction::Client do
 
   describe "#extract_and_wait" do
     it "extracts and waits for completion" do
-      stub_request(:post, "https://api.stack0.io/webdata/extractions")
+      stub_request(:post, "https://api.stack0.dev/webdata/extractions")
         .to_return(
           status: 200,
           body: { "id" => "extraction_123", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/extractions/extraction_123")
+      stub_request(:get, "https://api.stack0.dev/webdata/extractions/extraction_123")
         .to_return(
           status: 200,
           body: {
@@ -205,14 +205,14 @@ RSpec.describe Stack0::Extraction::Client do
     end
 
     it "raises error on failure" do
-      stub_request(:post, "https://api.stack0.io/webdata/extractions")
+      stub_request(:post, "https://api.stack0.dev/webdata/extractions")
         .to_return(
           status: 200,
           body: { "id" => "extraction_fail", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/extractions/extraction_fail")
+      stub_request(:get, "https://api.stack0.dev/webdata/extractions/extraction_fail")
         .to_return(
           status: 200,
           body: { "id" => "extraction_fail", "status" => "failed", "error" => "Content not extractable" }.to_json,
@@ -225,14 +225,14 @@ RSpec.describe Stack0::Extraction::Client do
     end
 
     it "raises timeout error" do
-      stub_request(:post, "https://api.stack0.io/webdata/extractions")
+      stub_request(:post, "https://api.stack0.dev/webdata/extractions")
         .to_return(
           status: 200,
           body: { "id" => "extraction_slow", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/extractions/extraction_slow")
+      stub_request(:get, "https://api.stack0.dev/webdata/extractions/extraction_slow")
         .to_return(
           status: 200,
           body: { "id" => "extraction_slow", "status" => "processing" }.to_json,
@@ -247,14 +247,14 @@ RSpec.describe Stack0::Extraction::Client do
 
   describe "#batch_and_wait" do
     it "creates batch and waits for completion" do
-      stub_request(:post, "https://api.stack0.io/webdata/batch/extractions")
+      stub_request(:post, "https://api.stack0.dev/webdata/batch/extractions")
         .to_return(
           status: 200,
           body: { "id" => "batch_123", "status" => "pending" }.to_json,
           headers: { "Content-Type" => "application/json" }
         )
 
-      stub_request(:get, "https://api.stack0.io/webdata/batch/batch_123")
+      stub_request(:get, "https://api.stack0.dev/webdata/batch/batch_123")
         .to_return(
           status: 200,
           body: {
@@ -344,7 +344,7 @@ RSpec.describe Stack0::Extraction::Client do
 
   describe "#delete_schedule" do
     it "deletes a schedule" do
-      stub_request(:delete, "https://api.stack0.io/webdata/schedules/sched_123")
+      stub_request(:delete, "https://api.stack0.dev/webdata/schedules/sched_123")
         .with(body: { "id" => "sched_123" }.to_json)
         .to_return(
           status: 200,

@@ -53,7 +53,7 @@ RSpec.describe Stack0::Mail::Domains do
       stub_stack0_request(:get, "/mail/domains/domain_123/dns", response_body: {
         "records" => [
           { "type" => "TXT", "name" => "_dmarc", "value" => "v=DMARC1", "verified" => true },
-          { "type" => "CNAME", "name" => "mail", "value" => "mail.stack0.io", "verified" => false }
+          { "type" => "CNAME", "name" => "mail", "value" => "mail.stack0.dev", "verified" => false }
         ]
       })
 

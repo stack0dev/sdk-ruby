@@ -75,7 +75,7 @@ client = Stack0::Client.new(
 Stack0.configure do |config|
   config.api_key = ENV["STACK0_API_KEY"]
   config.base_url = "https://api.stack0.dev/v1"
-  config.cdn_url = "https://cdn.stack0.io"
+  config.cdn_url = "https://cdn.stack0.dev"
   config.timeout = 60
 end
 
@@ -361,7 +361,7 @@ Generate optimized image URLs client-side with no API call:
 
 ```ruby
 # Using a full CDN URL
-url = client.cdn.get_transform_url("https://cdn.stack0.io/my-project/photo.jpg",
+url = client.cdn.get_transform_url("https://cdn.stack0.dev/my-project/photo.jpg",
   width: 800,
   height: 600,
   fit: "cover",

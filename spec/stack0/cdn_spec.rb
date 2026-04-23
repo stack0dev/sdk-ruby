@@ -46,7 +46,7 @@ RSpec.describe Stack0::CDN::Client do
     it "confirms an upload" do
       stub_stack0_request(:post, "/cdn/upload/asset_123/confirm", response_body: {
         "id" => "asset_123",
-        "url" => "https://cdn.stack0.io/assets/abc.png",
+        "url" => "https://cdn.stack0.dev/assets/abc.png",
         "status" => "ready",
         "createdAt" => "2024-01-15T10:00:00Z"
       })
@@ -62,7 +62,7 @@ RSpec.describe Stack0::CDN::Client do
     it "retrieves an asset by ID" do
       stub_stack0_request(:get, "/cdn/assets/asset_123", response_body: {
         "id" => "asset_123",
-        "url" => "https://cdn.stack0.io/assets/abc.png",
+        "url" => "https://cdn.stack0.dev/assets/abc.png",
         "filename" => "image.png",
         "size" => 12345,
         "mimeType" => "image/png",
@@ -99,7 +99,7 @@ RSpec.describe Stack0::CDN::Client do
 
   describe "#delete" do
     it "deletes an asset" do
-      stub_request(:delete, "https://api.stack0.io/cdn/assets/asset_123")
+      stub_request(:delete, "https://api.stack0.dev/cdn/assets/asset_123")
         .with(body: { "id" => "asset_123" }.to_json)
         .to_return(
           status: 200,
@@ -129,8 +129,8 @@ RSpec.describe Stack0::CDN::Client do
     it "lists assets with filters" do
       stub_stack0_request(:get, "/cdn/assets?projectSlug=my-project&limit=20", response_body: {
         "assets" => [
-          { "id" => "asset_1", "url" => "https://cdn.stack0.io/1.png", "createdAt" => "2024-01-15T10:00:00Z" },
-          { "id" => "asset_2", "url" => "https://cdn.stack0.io/2.png", "createdAt" => "2024-01-15T11:00:00Z" }
+          { "id" => "asset_1", "url" => "https://cdn.stack0.dev/1.png", "createdAt" => "2024-01-15T10:00:00Z" },
+          { "id" => "asset_2", "url" => "https://cdn.stack0.dev/2.png", "createdAt" => "2024-01-15T11:00:00Z" }
         ],
         "total" => 2
       })
@@ -166,18 +166,18 @@ RSpec.describe Stack0::CDN::Client do
   end
 
   describe "#get_transform_url" do
-    let(:cdn_client) { Stack0::CDN::Client.new(nil, cdn_url: "https://cdn.stack0.io") }
+    let(:cdn_client) { Stack0::CDN::Client.new(nil, cdn_url: "https://cdn.stack0.dev") }
 
     it "generates a transform URL from an S3 key" do
       url = cdn_client.get_transform_url("assets/image.png", width: 800)
 
-      expect(url).to include("cdn.stack0.io")
+      expect(url).to include("cdn.stack0.dev")
       expect(url).to include("w=")
     end
 
     it "generates a transform URL from a full URL" do
       url = cdn_client.get_transform_url(
-        "https://cdn.stack0.io/assets/image.png",
+        "https://cdn.stack0.dev/assets/image.png",
         format: "webp",
         quality: 85
       )
@@ -296,8 +296,8 @@ RSpec.describe Stack0::CDN::Client do
   describe "#get_streaming_urls" do
     it "retrieves streaming URLs" do
       stub_stack0_request(:get, "/cdn/video/stream/asset_123", response_body: {
-        "hlsUrl" => "https://cdn.stack0.io/video/abc/master.m3u8",
-        "dashUrl" => "https://cdn.stack0.io/video/abc/manifest.mpd"
+        "hlsUrl" => "https://cdn.stack0.dev/video/abc/master.m3u8",
+        "dashUrl" => "https://cdn.stack0.dev/video/abc/manifest.mpd"
       })
 
       result = cdn.get_streaming_urls("asset_123")

@@ -155,7 +155,7 @@ RSpec.describe Stack0::Mail::Audiences do
 
   describe "#remove_contacts" do
     it "removes contacts from an audience" do
-      stub_request(:delete, "https://api.stack0.io/mail/audiences/aud_123/contacts")
+      stub_request(:delete, "https://api.stack0.dev/mail/audiences/aud_123/contacts")
         .with(body: { contactIds: %w[contact_1 contact_2] }.to_json)
         .to_return(
           status: 200,
